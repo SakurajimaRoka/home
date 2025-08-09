@@ -1,0 +1,342 @@
+/* css/style.css */
+:root {
+    --deep-blue: #00008B;
+    --light-blue: #ADD8E6;
+    --lemon-yellow: #FFF44F;
+    --light-gray: #f5f5f5;
+    --dark-gray: #333;
+    --accent-pink: #FF6B8B;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Noto Sans SC', sans-serif;
+    background: linear-gradient(135deg, var(--light-blue) 0%, var(--deep-blue) 100%);
+    color: #fff;
+    line-height: 1.6;
+    background-image: url('../images/background.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-blend-mode: multiply;
+}
+
+.main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 5%;
+    background: rgba(0, 0, 139, 0.85);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.logo-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--lemon-yellow);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.subtitle {
+    font-size: 0.9rem;
+    color: var(--light-blue);
+    margin-top: -5px;
+}
+
+.main-nav ul {
+    display: flex;
+    list-style: none;
+}
+
+.main-nav li {
+    margin-left: 1.5rem;
+}
+
+.main-nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 0.8rem;
+    border-radius: 20px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+}
+
+.main-nav a i {
+    margin-right: 8px;
+}
+
+.main-nav a:hover, .main-nav a.active {
+    background: var(--lemon-yellow);
+    color: var(--deep-blue);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 20px;
+}
+
+.hero-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
+    background: rgba(0, 0, 139, 0.7);
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.character-art {
+    flex: 0 0 40%;
+    position: relative;
+    height: 400px;
+}
+
+.character-img {
+    background: linear-gradient(135deg, var(--light-blue) 0%, var(--lemon-yellow) 100%);
+    height: 100%;
+    border-radius: 15px;
+    position: relative;
+    overflow: hidden;
+}
+
+.character-img::before {
+    content: "八奈见杏菜";
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--deep-blue);
+    z-index: 2;
+}
+
+.character-img::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('../images/character.png') center/contain no-repeat;
+    opacity: 0.9；
+}
+
+.welcome-message {
+    flex: 0 0 55%;
+}
+
+.welcome-message h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--lemon-yellow);
+}
+
+.subheading {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    color: var(--light-blue);
+}
+
+.quote-box {
+    background: rgba(173, 216, 230, 0.2);
+    border-left: 4px solid var(--lemon-yellow);
+    padding: 1.5rem;
+    border-radius: 0 10px 10px 0;
+    margin-top: 2rem;
+}
+
+.quote-box p {
+    font-style: italic;
+    font-size: 1.2rem;
+}
+
+.quote-author {
+    text-align: right;
+    margin-top: 1rem;
+    font-weight: bold;
+    color: var(--lemon-yellow);
+}
+
+.info-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.info-card {
+    background: rgba(0, 0, 139, 0.7);
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.info-card:hover {
+    transform: translateY(-5px);
+}
+
+.info-card h2 {
+    color: var(--lemon-yellow);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+}
+
+.info-card h2 i {
+    margin-right: 10px;
+}
+
+.info-card ul {
+    list-style: none;
+}
+
+.info-card li {
+    padding: 0.5rem 0;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+}
+
+.info-card li:last-child {
+    border-bottom: none;
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.tags span {
+    background: var(--light-blue);
+    color: var(--deep-blue);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.quotes p {
+    padding: 0.8rem 0;
+    border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+    font-style: italic;
+}
+
+.quotes p:last-child {
+    border-bottom: none;
+}
+
+.main-footer {
+    background: rgba(0, 0, 139, 0.9);
+    padding: 1.5rem 0;
+    text-align: center;
+    margin-top: 3rem;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.social-links {
+    margin-top: 1rem;
+}
+
+.social-links a {
+    display: inline-block;
+    color: white;
+    background: var(--light-blue);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    line-height: 40px;
+    margin: 0 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.social-links a:hover {
+    background: var(--lemon-yellow);
+    color: var(--deep-blue);
+    transform: translateY(-3px);
+}
+
+/* 社交媒体图标样式 */
+.social-icons {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.social-icons a {
+  display: block;
+  width: 64px;
+  height: 64px;
+  transition: transform 0.3s ease;
+}
+
+.social-icons a:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.social-icons img {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+/* 响应式设计 */
+@media (max-width: 900px) {
+    .hero-section {
+        flex-direction: column;
+    }
+    
+    .character-art {
+        width: 100%;
+        margin-bottom: 2rem;
+    }
+    
+    .main-nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .main-nav li {
+        margin: 0.3rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .main-header {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .logo {
+        margin-bottom: 0.5rem;
+    }
+    
+    .main-nav {
+        width: 100%;
+        margin-top: 1rem;
+    }
+    
+    .main-nav ul {
+        justify-content: space-around;
+    }
+}

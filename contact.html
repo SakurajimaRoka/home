@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>联系我 - 桜島琥夏の个人空间</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --deep-blue: #00008B;
+            --light-blue: #ADD8E6;
+            --lemon-yellow: #FFF44F;
+            --light-gray: #f5f5f5;
+            --dark-gray: #333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: linear-gradient(135deg, var(--deep-blue) 0%, #000033 100%);
+            color: #fff;
+            line-height: 1.6;
+            background-image: url('../images/contact_bg.png');
+            background-size: cover;
+            background-attachment: fixed;
+            background-blend-mode: multiply;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        /* 导航样式 */
+        .main-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            background: rgba(0, 0, 139, 0.85);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--lemon-yellow);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .subtitle {
+            font-size: 0.9rem;
+            color: var(--light-blue);
+            margin-top: -5px;
+        }
+
+        .main-nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        .main-nav li {
+            margin-left: 1.5rem;
+        }
+
+        .main-nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.5rem 0.8rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+
+        .main-nav a i {
+            margin-right: 8px;
+        }
+
+        .main-nav a:hover, .main-nav a.active {
+            background: var(--lemon-yellow);
+            color: var(--deep-blue);
+        }
+
+        /* 主内容区 */
+        .contact-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .contact-header {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-header h1 {
+            font-size: 3rem;
+            color: var(--lemon-yellow);
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .contact-header p {
+            font-size: 1.2rem;
+            color: var(--light-blue);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* 联系表单 */
+        .contact-form-section {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .contact-card {
+            background: rgba(0, 0, 139, 0.7);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--light-blue);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-card::before {
+            content: "八奈见杏菜";
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 4rem;
+            font-weight: bold;
+            color: rgba(173, 216, 230, 0.1);
+            z-index: 0;
+            transform: rotate(-15deg);
+        }
+
+        .contact-card h2 {
+            position: relative;
+            z-index: 1;
+            font-size: 2.2rem;
+            color: var(--lemon-yellow);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 2px solid var(--light-blue);
+            border-radius: 10px;
+            background: rgba(173, 216, 230, 0.1);
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--lemon-yellow);
+            background: rgba(173, 216, 230, 0.2);
+            box-shadow: 0 0 10px rgba(255, 244, 79, 0.3);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background: var(--lemon-yellow);
+            color: var(--deep-blue);
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .submit-btn:hover {
+            background: var(--light-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        /* 联系方式 */
+        .contact-info-section {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .info-card {
+            background: rgba(0, 0, 139, 0.7);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--light-blue);
+            margin-bottom: 2rem;
+        }
+
+        .info-card h2 {
+            font-size: 1.8rem;
+            color: var(--lemon-yellow);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .info-card h2 i {
+            margin-right: 10px;
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(173, 216, 230, 0.1);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-method:hover {
+            background: rgba(173, 216, 230, 0.2);
+            transform: translateX(5px);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--lemon-yellow);
+            color: var(--deep-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .contact-details {
+            flex: 1;
+        }
+
+        .contact-details h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-details p {
+            color: var(--light-blue);
+        }
+
+        .contact-details a {
+            color: var(--light-blue);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-details a:hover {
+            color: var(--lemon-yellow);
+            text-decoration: underline;
+        }
+
+        /* 社交媒体 */
+        .social-section {
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .social-card {
+            background: rgba(0, 0, 139, 0.7);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--light-blue);
+        }
+
+        .social-card h2 {
+            font-size: 2rem;
+            color: var(--lemon-yellow);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .social-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-10px);
+        }
+
+        .social-icon .icon-wrapper {
+            width: 80px;
+            height: 80px;
+            background: rgba(173, 216, 230, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            border: 2px solid var(--light-blue);
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover .icon-wrapper {
+            background: var(--lemon-yellow);
+            border-color: var(--lemon-yellow);
+        }
+
+        .social-icon .icon-wrapper i {
+            font-size: 2.5rem;
+            color: var(--light-blue);
+            transition: color 0.3s ease;
+        }
+
+        .social-icon:hover .icon-wrapper i {
+            color: var(--deep-blue);
+        }
+
+        .social-icon span {
+            color: white;
+            font-weight: 500;
+        }
+
+        /* 页脚 */
+        .main-footer {
+            background: rgba(0, 0, 139, 0.9);
+            padding: 1.5rem 0;
+            text-align: center;
+            margin-top: 3rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .footer-social {
+            margin-top: 1rem;
+        }
+
+        .footer-social a {
+            display: inline-block;
+            color: white;
+            background: var(--light-blue);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            line-height: 40px;
+            margin: 0 0.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .footer-social a:hover {
+            background: var(--lemon-yellow);
+            color: var(--deep-blue);
+            transform: translateY(-3px);
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 900px) {
+            .contact-container {
+                flex-direction: column;
+            }
+            
+            .contact-form-section, .contact-info-section {
+                width: 100%;
+            }
+            
+            .contact-card::before {
+                font-size: 3rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .main-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo {
+                margin-bottom: 0.5rem;
+            }
+            
+            .main-nav {
+                width: 100%;
+                margin-top: 1rem;
+            }
+            
+            .main-nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .main-nav li {
+                margin: 0.3rem;
+            }
+            
+            .contact-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .contact-card, .info-card, .social-card {
+                padding: 1.5rem;
+            }
+            
+            .social-icons {
+                gap: 15px;
+            }
+            
+            .social-icon .icon-wrapper {
+                width: 60px;
+                height: 60px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="main-header">
+        <div class="logo-container">
+            <div class="logo">桜島琥夏</div>
+            <div class="subtitle">八奈见杏菜应援站</div>
+        </div>
+        <nav class="main-nav">
+            <ul>
+                <li><a href="index.html"><i class="fas fa-home"></i> 首页</a></li>
+                <li><a href="about.html"><i class="fas fa-user"></i> 关于我</a></li>
+                <li><a href="anime.html"><i class="fas fa-dragon"></i> 二次元世界</a></li>
+                <li><a href="maker.html"><i class="fas fa-microchip"></i> 创客空间</a></li>
+                <li><a href="contact.html" class="active"><i class="fas fa-envelope"></i> 联系我</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- 主内容区 -->
+    <main class="contact-container">
+        <div class="contact-header">
+            <h1><i class="fas fa-envelope"></i> 联系我</h1>
+            <p>欢迎通过以下方式与我取得联系！无论是项目合作、二次元交流还是其他事宜，我都会尽快回复您</p>
+        </div>
+        
+        <!-- 联系表单 -->
+        <section class="contact-form-section">
+            <div class="contact-card">
+                <h2><i class="fas fa-paper-plane"></i> 联系信息</h2>
+                <div class="form-group">
+                    <label for="email">电子邮箱</label>
+                    <input type="email" id="email" class="form-control" value="sakurajima.roka@gmail.com" readonly>
+                </div>
+                
+                <div class="form-group">
+                    <label for="qq">QQ</label>
+                    <input type="text" id="qq" class="form-control" value="2035566353（请备注来意）" readonly>
+                </div>
+                
+                <div class="form-group">
+                    <label for="location">位置</label>
+                    <input type="text" id="location" class="form-control" value="中国 · 泸州" readonly>
+                </div>
+                
+                <a href="https://mail.qq.com/" class="submit-btn">
+                    <i class="fas fa-envelope"></i> Join us
+                </a>
+            </div>
+        </section>
+        
+        <!-- 联系方式 -->
+        <section class="contact-info-section">
+            <div class="info-card">
+                <h2><i class="fas fa-envelope-open-text"></i> 直接联系</h2>
+                
+                <div class="contact-method">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>电子邮箱</h3>
+                        <p>
+                            <a href="mailto:sakurajima.roka@gmail.com">sakurajima.roka@gmail.com</a>
+                        </p>
+                        <p>
+                            <a href="mailto:2035566353@qq.com">2035566353@qq.com</a>
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="contact-method">
+                    <div class="contact-icon">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>网名</h3>
+                        <p>桜島琥夏 (Sakurajima Roka)</p>
+                    </div>
+                </div>
+                
+                <div class="contact-method">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>位置</h3>
+                        <p>中国 · 泸州</p>
+                    </div>
+                </div>
+                
+                <div class="contact-method">
+                    <div class="contact-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>响应时间</h3>
+                        <p>工作日：72小时内回复</p>
+                        <p>周末：48小时内回复</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="info-card">
+                <h2><i class="fas fa-share-alt"></i> 其他联系方式</h2>
+                
+                <div class="contact-method">
+                    <div class="contact-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>留言板</h3>
+                        <p>网站留言功能（即将上线）</p>
+                    </div>
+                </div>
+                
+                <div class="contact-method">
+                    <div class="contact-icon">
+                        <i class="fas fa-gamepad"></i>
+                    </div>
+                    <div class="contact-details">
+                        <h3>游戏平台</h3>
+                        <p><a href="https://steamcommunity.com/profiles/76561199476096424/" target="_blank">Steam: Siroukin</a></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 社交媒体 -->
+        <section class="social-section">
+            <div class="social-card">
+                <h2><i class="fas fa-hashtag"></i> 关注我的社交媒体</h2>
+                <div class="social-icons">
+                    <a href="https://www.xiaohongshu.com/user/profile/62ff980e0000000012000fa2?xsec_token=YBycQEGiTREHtbgVn447kQOhHBsFdjJo22DB8lFwof0WE%3D&xsec_source=app_share&xhsshare=CopyLink&appuid=62ff980e0000000012000fa2&apptime=1754719609&share_id=92d72cd9a9fe4fc482d43b0a519dd556&share_channel=copy_link" class="social-icon" target="_blank">
+                        <div class="icon-wrapper">
+                            <i class="fab fa-reddit"></i>
+                        </div>
+                        <span>小红书</span>
+                    </a>
+                    
+                    <a href="https://m.youtube.com/channel/UCbD0_nUBYpJX2-KSjPNt3zA" class="social-icon" target="_blank">
+                        <div class="icon-wrapper">
+                            <i class="fab fa-youtube"></i>
+                        </div>
+                        <span>YouTube</span>
+                    </a>
+                    
+                    <a href="https://qm.qq.com/q/2035566353" class="social-icon" target="_blank">
+                        <div class="icon-wrapper">
+                            <i class="fab fa-qq"></i>
+                        </div>
+                        <span>QQ</span>
+                    </a>
+                    
+                    <a href="https://b23.tv/CEwHdYA" class="social-icon" target="_blank">
+                        <div class="icon-wrapper">
+                            <i class="fab fa-bilibili"></i>
+                        </div>
+                        <span>哔哩哔哩</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>© 2025 桜島琥夏の个人空间 | 八奈见杏菜应援站</p>
+            <div class="footer-social">
+                <a href="https://www.xiaohongshu.com/user/profile/62ff980e0000000012000fa2?xsec_token=YBycQEGiTREHtbgVn447kQOhHBsFdjJo22DB8lFwof0WE%3D&xsec_source=app_share&xhsshare=CopyLink&appuid=62ff980e0000000012000fa2&apptime=1754719609&share_id=92d72cd9a9fe4fc482d43b0a519dd556&share_channel=copy_link" target="_blank"><i class="fab fa-reddit"></i></a>
+                <a href="https://m.youtube.com/channel/UCbD0_nUBYpJX2-KSjPNt3zA" target="_blank"><i class="fab fa-youtube"></i></a>
+                <a href="https://qm.qq.com/q/2035566353" target="_blank"><i class="fab fa-qq"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // 设置当前页面导航激活状态
+            const navLinks = document.querySelectorAll('.main-nav a');
+            navLinks.forEach(link => {
+                if (link.classList.contains('active')) {
+                    link.classList.remove('active');
+                }
+                if (link.textContent.includes('联系我')) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // 社交媒体图标悬停效果
+            const socialIcons = document.querySelectorAll('.social-icon');
+            socialIcons.forEach(icon => {
+                icon.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px)';
+                });
+                
+                icon.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
