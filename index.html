@@ -90,5 +90,19 @@
     </footer>
 
     <script src="js/script.js"></script>
+    <script>
+        // 设备检测函数
+        function isMobileDevice() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        }
+
+        // 当前页面是index.html且是移动设备时跳转
+        if (window.location.pathname.endsWith('index.html') || 
+            window.location.pathname === '/') {
+            if (isMobileDevice()) {
+                window.location.href = 'index_mobile.html';
+            }
+        }
+    </script>
 </body>
 </html>
