@@ -1,0 +1,1840 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>桜島琥夏の个人空间 - 移动版</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --deep-blue: #00008B;
+            --light-blue: #ADD8E6;
+            --lemon-yellow: #FFF44F;
+            --light-gray: #f5f5f5;
+            --dark-gray: #333;
+            --accent-pink: #FF6B8B;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', sans-serif;
+            background: linear-gradient(135deg, var(--light-blue) 0%, var(--deep-blue) 100%);
+            color: #fff;
+            line-height: 1.6;
+            background-attachment: fixed;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* 移动端顶部导航 */
+        .mobile-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(0, 0, 139, 0.95);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--lemon-yellow);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+        }
+
+        .subtitle {
+            font-size: 0.7rem;
+            color: var(--light-blue);
+            margin-top: -3px;
+        }
+
+        .hamburger {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+
+        /* 移动端导航菜单 */
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 85%;
+            height: 100%;
+            background: rgba(0, 0, 139, 0.98);
+            z-index: 2000;
+            transition: all 0.4s ease;
+            padding: 80px 20px 20px;
+            overflow-y: auto;
+            box-shadow: 5px 0 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .mobile-nav.active {
+            left: 0;
+        }
+
+        .mobile-nav ul {
+            list-style: none;
+        }
+
+        .mobile-nav li {
+            margin-bottom: 15px;
+        }
+
+        .mobile-nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 12px 15px;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+            background: rgba(173, 216, 230, 0.2);
+        }
+
+        .mobile-nav a i {
+            margin-right: 12px;
+            width: 25px;
+            text-align: center;
+        }
+
+        .mobile-nav a:hover, .mobile-nav a.active {
+            background: var(--lemon-yellow);
+            color: var(--deep-blue);
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1500;
+            display: none;
+        }
+
+        .overlay.active {
+            display: block;
+        }
+
+        /* 主内容区 */
+        .container {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 15px;
+        }
+
+        .hero-section {
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 2rem;
+            background: rgba(0, 0, 139, 0.7);
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .character-art {
+            width: 100%;
+            height: 250px;
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .character-img {
+            /* 修改点1: 添加人物图像作为背景 */
+            background: 
+                linear-gradient(135deg, rgba(255, 244, 79, 0.7) 0%, rgba(255, 107, 139, 0.7) 100%),
+                url('images/character.png') center/cover;
+            height: 100%;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* 修改点2: 移除伪元素的内容 */
+        .character-img::before {
+            content: "";
+        }
+
+        .character-img::after {
+            content: "";
+        }
+
+        .welcome-message {
+            width: 100%;
+        }
+
+        .welcome-message h1 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--lemon-yellow);
+            text-align: center;
+        }
+
+        .subheading {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: var(--light-blue);
+            text-align: center;
+        }
+
+        .quote-box {
+            background: rgba(173, 216, 230, 0.2);
+            border-left: 4px solid var(--lemon-yellow);
+            padding: 1.2rem;
+            border-radius: 0 10px 10px 0;
+            margin-top: 1.5rem;
+        }
+
+        .quote-box p {
+            font-style: italic;
+            font-size: 1.1rem;
+        }
+
+        .quote-author {
+            text-align: right;
+            margin-top: 1rem;
+            font-weight: bold;
+            color: var(--lemon-yellow);
+        }
+
+        /* 信息卡片 */
+        .info-section {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .info-card {
+            background: rgba(0, 0, 139, 0.7);
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .info-card h2 {
+            color: var(--lemon-yellow);
+            margin-bottom: 1.2rem;
+            display: flex;
+            align-items: center;
+            font-size: 1.4rem;
+        }
+
+        .info-card h2 i {
+            margin-right: 10px;
+        }
+
+        .info-card ul {
+            list-style: none;
+        }
+
+        .info-card li {
+            padding: 0.7rem 0;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+            font-size: 1rem;
+        }
+
+        .info-card li:last-child {
+            border-bottom: none;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .tags span {
+            background: var(--light-blue);
+            color: var(--deep-blue);
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .quotes p {
+            padding: 0.8rem 0;
+            border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+            font-style: italic;
+            font-size: 1rem;
+        }
+
+        .quotes p:last-child {
+            border-bottom: none;
+        }
+
+        .section-title {
+            position: relative;
+            font-size: 2rem;
+            color: var(--lemon-yellow);
+            margin: 3rem 0 1.5rem;
+            padding-left: 1.5rem;
+        }
+
+        .section-title::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            height: 80%;
+            width: 8px;
+            background: var(--light-blue);
+            border-radius: 4px;
+        }
+        
+        /* 八奈见杏菜专栏 */
+        .anana-section {
+            background: rgba(0, 0, 139, 0.7);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--light-blue);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .anana-section::before {
+            content: "八奈见杏菜";
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 5rem;
+            font-weight: bold;
+            color: rgba(173, 216, 230, 0.1);
+            z-index: 0;
+            transform: rotate(15deg);
+        }
+
+        .anana-intro {
+            display: block;
+            margin-bottom: 2.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .anana-image-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        
+        .anana-image {
+            width: 100%;
+            max-width: 300px;
+            height: 300px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, var(--light-blue), var(--lemon-yellow));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--deep-blue);
+            text-align: center;
+            padding: 20px;
+        }
+        
+
+        .anana-info {
+            width: 100%; /* 占据全部宽度 */
+        }
+
+        .anana-info h2 {
+            font-size: 2.2rem;
+            color: var(--lemon-yellow);
+            margin-bottom: 1rem;
+        }
+
+        .anana-info p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .quote-box {
+            background: rgba(173, 216, 230, 0.2);
+            border-left: 4px solid var(--lemon-yellow);
+            padding: 1.5rem;
+            border-radius: 0 10px 10px 0;
+            margin: 1.5rem 0;
+        }
+
+        .quote-box p {
+            font-style: italic;
+            font-size: 1.2rem;
+        }
+
+        .quote-author {
+            text-align: right;
+            margin-top: 1rem;
+            font-weight: bold;
+            color: var(--lemon-yellow);
+        }
+
+        /* 动漫作品展示 */
+        .anime-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 2rem 0;
+        }
+
+        .anime-card {
+            background: rgba(0, 0, 139, 0.7);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            border: 1px solid var(--light-blue);
+        }
+
+        .anime-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .anime-image {
+            height: 250px;
+            background: linear-gradient(45deg, var(--light-blue), var(--lemon-yellow));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--deep-blue);
+            font-size: 1.2rem;
+            text-align: center;
+            padding: 15px;
+        }
+
+        .anime-content {
+            padding: 1.5rem;
+        }
+
+        .anime-content h3 {
+            font-size: 1.4rem;
+            color: var(--lemon-yellow);
+            margin-bottom: 0.8rem;
+        }
+
+        .anime-content p {
+            font-size: 0.95rem;
+            margin-bottom: 1.2rem;
+            line-height: 1.6;
+        }
+
+        .anime-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .anime-tag {
+            background: var(--light-blue);
+            color: var(--deep-blue);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* 视频鉴赏部分样式 */
+        .video-section {
+            background: rgba(0, 0, 139, 0.7);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin: 3rem 0;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--light-blue);
+        }
+
+        .video-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 2rem;
+        }
+
+        .video-card {
+            background: rgba(0, 0, 139, 0.8);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            border: 1px solid var(--light-blue);
+        }
+
+        .video-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .video-container {
+            position: relative;
+            height: 0;
+            padding-bottom: 56.25%; /* 16:9 宽高比 */
+            background: #000;
+        }
+
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            cursor: pointer;
+        }
+
+        .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 244, 79, 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.8;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        .play-icon i {
+            font-size: 24px;
+            color: var(--deep-blue);
+            margin-left: 5px;
+        }
+
+        .video-container:hover .play-icon {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .video-content {
+            padding: 1.5rem;
+        }
+
+        .video-content h3 {
+            font-size: 1.3rem;
+            color: var(--lemon-yellow);
+            margin-bottom: 0.8rem;
+        }
+
+        .video-content p {
+            font-size: 0.95rem;
+            margin-bottom: 1.2rem;
+            line-height: 1.6;
+            color: #ddd;
+        }
+
+        .video-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .video-tag {
+            background: var(--accent-pink);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+    
+        /* 见解部分 */
+        .insights-section {
+            background: rgba(0, 0, 139, 0.7);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin: 3rem 0;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--light-blue);
+        }
+
+        .insight-card {
+            background: rgba(173, 216, 230, 0.1);
+            border-radius: 10px;
+            padding: 1.8rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .insight-card:hover {
+            background: rgba(173, 216, 230, 0.2);
+            transform: translateX(5px);
+        }
+
+        .insight-card h3 {
+            color: var(--lemon-yellow);
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+        }
+
+        .insight-card p {
+            line-height: 1.8;
+        }
+        
+        .contact-info-section {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .info-card {
+            background: rgba(0, 0, 139, 0.7);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--light-blue);
+            margin-bottom: 2rem;
+        }
+
+        .info-card h2 {
+            font-size: 1.8rem;
+            color: var(--lemon-yellow);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .info-card h2 i {
+            margin-right: 10px;
+        }
+
+        .contact-method {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: rgba(173, 216, 230, 0.1);
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-method:hover {
+            background: rgba(173, 216, 230, 0.2);
+            transform: translateX(5px);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--lemon-yellow);
+            color: var(--deep-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            flex-shrink: 0;
+        }
+
+        .contact-details {
+            flex: 1;
+        }
+
+        .contact-details h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-details p {
+            color: var(--light-blue);
+        }
+
+        .contact-details a {
+            color: var(--light-blue);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-details a:hover {
+            color: var(--lemon-yellow);
+            text-decoration: underline;
+        }
+
+        /* 联系表单 */
+        .contact-form-section {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .contact-card {
+            background: rgba(0, 0, 139, 0.7);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--light-blue);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contact-card::before {
+            content: "八奈见杏菜";
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 4rem;
+            font-weight: bold;
+            color: rgba(173, 216, 230, 0.1);
+            z-index: 0;
+            transform: rotate(-15deg);
+        }
+
+        .contact-card h2 {
+            position: relative;
+            z-index: 1;
+            font-size: 2.2rem;
+            color: var(--lemon-yellow);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 2px solid var(--light-blue);
+            border-radius: 10px;
+            background: rgba(173, 216, 230, 0.1);
+            color: white;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--lemon-yellow);
+            background: rgba(173, 216, 230, 0.2);
+            box-shadow: 0 0 10px rgba(255, 244, 79, 0.3);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            display: block;
+            width: 100%;
+            padding: 1rem;
+            background: var(--lemon-yellow);
+            color: var(--deep-blue);
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .submit-btn:hover {
+            background: var(--light-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+
+        /* 社交媒体 */
+        .social-section {
+            width: 100%;
+            margin-top: 1rem;
+        }
+
+        .social-card {
+            background: rgba(0, 0, 139, 0.7);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+            border: 2px solid var(--light-blue);
+        }
+
+        .social-card h2 {
+            font-size: 2rem;
+            color: var(--lemon-yellow);
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .social-icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-10px);
+        }
+
+        .social-icon .icon-wrapper {
+            width: 80px;
+            height: 80px;
+            background: rgba(173, 216, 230, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            border: 2px solid var(--light-blue);
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover .icon-wrapper {
+            background: var(--lemon-yellow);
+            border-color: var(--lemon-yellow);
+        }
+
+        .social-icon .icon-wrapper i {
+            font-size: 2.5rem;
+            color: var(--light-blue);
+            transition: color 0.3s ease;
+        }
+
+        .social-icon:hover .icon-wrapper i {
+            color: var(--deep-blue);
+        }
+
+        .social-icon span {
+            color: white;
+            font-weight: 500;
+        }
+
+        /* 页脚 */
+        .main-footer {
+            background: rgba(0, 0, 139, 0.9);
+            padding: 1.5rem 0;
+            text-align: center;
+            margin-top: 2rem;
+            border-top: 2px solid var(--lemon-yellow);
+        }
+
+        .footer-content {
+            max-width: 100%;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .social-links {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            background: var(--light-blue);
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .social-links a:hover {
+            background: var(--lemon-yellow);
+            color: var(--deep-blue);
+            transform: translateY(-3px);
+        }
+
+        /* 页面切换动画 */
+        .page-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 返回顶部按钮 */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: var(--lemon-yellow);
+            color: var(--deep-blue);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 100;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .text-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            padding: 15px 25px;
+            background: "";
+            border-radius: 15px;
+            color: var(--deep-blue);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+
+        .character-name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .page-title {
+            font-size: 1rem;
+        }
+
+        /* 小屏幕调整 */
+        @media (max-width: 480px) {
+            .hero-section {
+                padding: 1.2rem;
+            }
+            
+            .character-art {
+                height: 220px;
+            }
+            
+            .welcome-message h1 {
+                font-size: 1.6rem;
+            }
+            
+            .info-card {
+                padding: 1.2rem;
+            }
+            
+            .text-overlay {
+                padding: 12px 20px;
+            }
+            
+            .character-name {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 移动端顶部导航 -->
+    <header class="mobile-header">
+        <div class="logo-container">
+            <div class="logo">桜島琥夏Mobile</div>
+            <div class="subtitle">八奈见杏菜应援站 - 移动端</div>
+        </div>
+        <button class="hamburger" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
+    </header>
+
+    <!-- 移动端导航菜单 -->
+    <div class="mobile-nav" id="mobileNav">
+        <button class="close-menu" id="closeMenu">
+            <i class="fas fa-times"></i>
+        </button>
+        <ul>
+            <li><a href="#" data-page="home" class="active"><i class="fas fa-home"></i> 首页</a></li>
+            <li><a href="#" data-page="about"><i class="fas fa-user"></i> 关于我</a></li>
+            <li><a href="#" data-page="anime"><i class="fas fa-dragon"></i> 二次元世界</a></li>
+            <li><a href="#" data-page="maker"><i class="fas fa-microchip"></i> 创客空间</a></li>
+            <li><a href="#" data-page="contact"><i class="fas fa-envelope"></i> 联系我</a></li>
+        </ul>
+    </div>
+    
+    <div class="overlay" id="overlay"></div>
+
+    <!-- 主内容区 -->
+    <main class="container">
+        <!-- 首页 -->
+        <section id="home" class="page-section active">
+            <div class="hero-section">
+                <div class="character-art">
+                    <div class="character-img">
+                        <!-- 修改点3: 添加带有半透明背景的文字容器 -->
+                        <div class="text-overlay">
+                            <div class="character-name">桜島琥夏</div>
+                            <div class="page-title">首页</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="welcome-message">
+                    <h1>欢迎来到 桜島琥夏 の个人站！</h1>
+                    <p class="subheading">中学生 | 二次元爱好者 | 创客</p>
+                    <div class="quote-box">
+                        <p id="quote">"八奈见杏菜是世界上第一可爱的角色！"</p>
+                        <p class="quote-author">- 桜島琥夏</p>
+                    </div>
+                </div>
+            </div>
+
+            <section class="info-section">
+                <div class="info-card">
+                    <h2><i class="fas fa-info-circle"></i> 基本信息</h2>
+                    <ul>
+                        <li><strong>网名:</strong> 桜島琥夏</li>
+                        <li><strong>学校:</strong> 四川省泸州老窖天府中学</li>
+                        <li><strong>年级:</strong> 初中三年级</li>
+                        <li><strong>工作室:</strong> Siroukin工作室</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h2><i class="fas fa-heart"></i> 兴趣爱好</h2>
+                    <div class="tags">
+                        <span>追番</span>
+                        <span>逛漫展</span>
+                        <span>买谷子</span>
+                        <span>游戏开发</span>
+                        <span>编程</span>
+                        <span>"物理发冥"</span>
+                        <span>"化学逝验"</span>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h2><i class="fas fa-star"></i> 老八经典语录</h2>
+                    <div class="quotes">
+                        <p>"今天的努力，是为了明天能吃到更多好吃的！"</p>
+                        <p>"食物带来的幸福感是无可替代的！"</p>
+                        <p>"享受美食的时候，烦恼什么的都飞走啦~"</p>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <!-- 关于我 -->
+        <section id="about" class="page-section">
+            <div class="hero-section">
+                <div class="character-art">
+                    <div class="character-img">
+                        <div class="text-overlay">
+                            <div class="character-name">桜島琥夏</div>
+                            <div class="page-title">关于我</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="welcome-message">
+                    <h1>关于 桜島琥夏</h1>
+                    <p class="subheading">中学生 | 二次元爱好者 | 创客</p>
+                    <div class="quote-box">
+                        <p>"喜欢八奈见杏菜需要理由吗？不需要！"</p>
+                        <p class="quote-author">- 桜島琥夏</p>
+                    </div>
+                </div>
+            </div>
+
+            <section class="info-section">
+                <div class="info-card">
+                    <h2><i class="fas fa-id-card"></i> 个人信息</h2>
+                    <ul>
+                        <li><strong>网名:</strong> 桜島琥夏 (Sakurajima Roka)</li>
+                        <li><strong>真实姓名:</strong> *请前往电脑端查看*</li>
+                        <li><strong>年龄:</strong> 14岁</li>
+                        <li><strong>学校:</strong> 四川省泸州老窖天府中学</li>
+                        <li><strong>年级:</strong> 初中三年级</li>
+                        <li><strong>工作室:</strong> Siroukin工作室</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h2><i class="fas fa-laptop-code"></i> 技能特长</h2>
+                    <div class="tags">
+                        <span>Python</span>
+                        <span>HTML/CSS/JS</span>
+                        <span>C++</span>
+                        <span>RenPy</span>
+                        <span>电离子发射器</span>
+                        <span>视频剪辑</span>
+                        <span>同人创作</span>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h2><i class="fas fa-heart"></i> 兴趣爱好</h2>
+                    <div class="tags">
+                        <span>追番看剧</span>
+                        <span>逛漫展</span>
+                        <span>游戏开发</span>
+                        <span>美食探索</span>
+                        <span>轻小说</span>
+                        <span>动画音乐</span>
+                    </div>
+                </div>
+            </section>
+        </section>
+
+        <!-- 二次元世界 -->
+        <section id="anime" class="page-section">
+            <div class="hero-section">
+                <div class="character-art">
+                    <div class="character-img">
+                        <div class="text-overlay">
+                            <div class="character-name">二次元世界</div>
+                            <div class="page-title">八奈见杏菜应援站</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="welcome-message">
+                    <h1>二次元世界</h1>
+                    <p class="subheading">动漫热爱 | 收藏展示 | 八奈见杏菜应援</p>
+                    <div class="quote-box">
+                        <p>"老八的笑容由我来守护！"</p>
+                        <p class="quote-author">- 桜島琥夏</p>
+                    </div>
+                </div>
+            </div>
+
+            <section class="info-section">
+            <h2 class="section-title">八奈见杏菜特别专栏</h2>
+            
+            <!-- 将角色图片移到这里 -->
+            <div class="anana-image-container">
+                <div class="anana-image" 
+                    style="background: url('images/anana_main.png') center/cover no-repeat;">
+                </div>
+            </div>
+            
+            <section class="anana-section">
+                <div class="anana-intro">
+                    <!-- 移除了原来的anana-image -->
+                    <div class="anana-info">
+                        <h2>八奈见杏菜 - 我永远的推し！</h2>
+                        <p>八奈见杏菜是《败犬女主太多了！》中的核心角色，以其独特的个性和可爱的外表赢得了无数粉丝的心。她有着蓝色的长发和明亮的眼睛，性格开朗活泼，对美食有着无比的热爱。</p>
+                                <p>老八最吸引我的地方是她率真的性格和对生活的热情。她从不掩饰自己对美食的渴望，这种真诚的态度让我深深着迷。在动画中，她与男主角的互动充满趣味，每次看到她因为美食而露出的幸福表情，都让我感到无比治愈。</p>
+                                
+                                <div class="quote-box">
+                                    <p>"食物带来的幸福感是无可替代的！享受美食的时候，烦恼什么的都飞走啦~"</p>
+                                    <p class="quote-author">- 八奈见杏菜</p>
+                                </div>
+                                
+                                <p>作为老八的单推人，我收集了各种周边产品，包括徽章、立牌、挂画等。每一件收藏品都承载着我对这个角色的热爱。在漫展上，我也会特别关注老八的同人作品，支持创作者们为这个角色注入新的生命力。</p>
+                            </div>
+                        </div>
+                        
+                        <div class="anana-facts">
+                            <h3><i class="fas fa-star"></i> 老八的魅力点</h3>
+                            <ul style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; margin-top: 1.5rem;">
+                                <li style="background: rgba(173, 216, 230, 0.1); padding: 15px; border-radius: 10px;">🍰 对美食的纯粹热爱</li>
+                                <li style="background: rgba(173, 216, 230, 0.1); padding: 15px; border-radius: 10px;">😄 阳光开朗的笑容</li>
+                                <li style="background: rgba(173, 216, 230, 0.1); padding: 15px; border-radius: 10px;">💖 率真不做作的性格</li>
+                                <li style="background: rgba(173, 216, 230, 0.1); padding: 15px; border-radius: 10px;">🎨 独特的角色设计</li>
+                            </ul>
+                        </div>
+                    </section>
+                
+                <h2 class="section-title">喜欢的动漫作品</h2>
+                    <div class="anime-gallery">
+                        <div class="anime-card">
+                            <div class="anime-image" 
+                                style="background: url('images/covers/makeine_cover.png') center/cover no-repeat;">
+                            </div>
+                            <div class="anime-content">
+                                <h3>败犬女主太多了！</h3>
+                                <p>这部作品以独特的视角展现了"败犬"女主的日常生活，八奈见杏菜作为主角之一，展现了令人难忘的魅力。</p>
+                                <div class="anime-tags">
+                                    <span class="anime-tag">校园</span>
+                                    <span class="anime-tag">恋爱</span>
+                                    <span class="anime-tag">喜剧</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="anime-card">
+                            <div class="anime-image" 
+                                style="background: url('images/covers/seishun_cover.png') center/cover no-repeat;">
+                            </div>
+                            <div class="anime-content">
+                                <h3>青春猪头少年系列</h3>
+                                <p>探讨青春期心理问题的佳作，情感描写细腻，角色塑造深入人心，是我入坑二次元的起点。</p>
+                                <div class="anime-tags">
+                                    <span class="anime-tag">青春</span>
+                                    <span class="anime-tag">超自然</span>
+                                    <span class="anime-tag">恋爱</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="anime-card">
+                            <div class="anime-image" 
+                                style="background: url('images/covers/saekano_cover.png') center/cover no-repeat;">
+                            </div>
+                            <div class="anime-content">
+                                <h3>路人女主的养成方法</h3>
+                                <p>圣人惠用“普通”属性统治全场，丸户老贼教你如何把GALGAME套路写成现实系青春物语，宅男梦想与创作者执念的终极缝合怪。</p>
+                                <div class="anime-tags">
+                                    <span class="anime-tag">恋爱</span>
+                                    <span class="anime-tag">校园</span>
+                                    <span class="anime-tag">后宫</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="anime-card">
+                            <div class="anime-image" 
+                                style="background: url('images/covers/10cm_cover.png') center/cover no-repeat;">
+                            </div>
+                            <div class="anime-content">
+                                <h3>无论何时我们的恋情都是10厘米</h3>
+                                <p>从樱花坡道开始的初恋，用六年时间跨越那看似咫尺的10厘米，青春期的甜蜜与阵痛在歌声中发酵成最温柔的遗憾。</p>
+                                <div class="anime-tags">
+                                    <span class="anime-tag">恋爱</span>
+                                    <span class="anime-tag">青春</span>
+                                    <span class="anime-tag">虐心</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="anime-card">
+                            <div class="anime-image" 
+                                style="background: url('images/covers/oregairu_cover.png') center/cover no-repeat;">
+                            </div>
+                            <div class="anime-content">
+                                <h3>我的青春恋爱物语果然有问题</h3>
+                                <p>大老师的"自爆式处世学"撕开青春糖衣，在侍奉部的伪物游戏中，所有人最终都笨拙地学会了触碰真物。</p>
+                                <div class="anime-tags">
+                                    <span class="anime-tag">校园</span>
+                                    <span class="anime-tag">恋爱</span>
+                                    <span class="anime-tag">哲学</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="anime-card">
+                            <div class="anime-image" 
+                                style="background: url('images/covers/shigatsu_cover.png') center/cover no-repeat;">
+                            </div>
+                            <div class="anime-content">
+                                <h3>四月是你的谎言</h3>
+                                <p>用钢琴与小提琴编织的14岁终曲，在樱花与谎言中绽放的生命绝唱——「你为我的人生添上色彩，我却只能还你黑白琴键」。</p>
+                                <div class="anime-tags">
+                                    <span class="anime-tag">音乐</span>
+                                    <span class="anime-tag">虐心</span>
+                                    <span class="anime-tag">恋爱</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="anime-card">
+                            <div class="anime-image" 
+                                style="background: url('images/covers/yorukura_cover.png') center/cover no-repeat;">
+                            </div>
+                            <div class="anime-content">
+                                <h3>彻夜之歌</h3>
+                                <p>月光下的慵懒吸血鬼与失眠少年，用东京的夜景当调色盘，把「不想长大」的逃避画成最浪漫的夜游指南。</p>
+                                <div class="anime-tags">
+                                    <span class="anime-tag">奇幻</span>
+                                    <span class="anime-tag">恋爱</span>
+                                    <span class="anime-tag">夜行</span>
+                                    <span class="anime-tag">意识流</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="anime-card">
+                            <div class="anime-image" 
+                                style="background: url('images/covers/eva_cover.png') center/cover no-repeat;">
+                            </div>
+                            <div class="anime-content">
+                                <h3>新世纪福音战士</h3>
+                                <p>用使徒歼灭战包装的人类补完计划，14岁驾驶员在暴走与自闭间反复横跳——"不能逃避"成为世纪性 PTSD 启动咒语。</p>
+                                <div class="anime-tags">
+                                    <span class="anime-tag">科幻</span>
+                                    <span class="anime-tag">机甲</span>
+                                    <span class="anime-tag">心理</span>
+                                    <span class="anime-tag">意识流</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="anime-card">
+                            <div class="anime-image" 
+                                style="background: url('images/covers/bisque_cover.png') center/cover no-repeat;">
+                            </div>
+                            <div class="anime-content">
+                                <h3>更衣人偶坠入爱河</h3>
+                                <p>当完美主义人偶师遇上热血Cos少女，针线布料间的青涩恋爱物语——「你的每一针都缝在我心动频率上」。</p>
+                                <div class="anime-tags">
+                                    <span class="anime-tag">纯爱</span>
+                                    <span class="anime-tag">校园</span>
+                                    <span class="anime-tag">Cosplay</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="anime-card">
+                            <div class="anime-image" 
+                                style="background: url('images/covers/yozakura_cover.png') center/cover no-repeat;">
+                            </div>
+                            <div class="anime-content">
+                                <h3>夜樱家的大作战</h3>
+                                <p>史上最硬核见家长——当女友全家都是超能力间谍，普通高中生的求生欲比告白更重要！</p>
+                                <div class="anime-tags">
+                                    <span class="anime-tag">战斗</span>
+                                    <span class="anime-tag">超能力</span>
+                                    <span class="anime-tag">恋爱</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="anime-card">
+                            <div class="anime-image" 
+                                style="background: url('images/covers/suiyoubi_cover.png') center/cover no-repeat;">
+                            </div>
+                            <div class="anime-content">
+                                <h3>我想吃掉你的胰脏</h3>
+                                <p>用一本「共病文库」交换两个孤独灵魂，樱花飘落的速度是每秒五厘米，而胰脏被吃掉的速度是一辈子忘不掉你。</p>
+                                <div class="anime-tags">
+                                    <span class="anime-tag">催泪</span>
+                                    <span class="anime-tag">绝症</span>
+                                    <span class="anime-tag">致郁</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="anime-card">
+                            <div class="anime-image" 
+                                style="background: url('images/covers/roshidere_cover.png') center/cover no-repeat;">
+                            </div>
+                            <div class="anime-content">
+                                <h3>不时轻声地以俄语遮羞的邻座艾莉同学</h3>
+                                <p>当战斗民族少女用俄语发射爱心，日本男高的词典里从此没有「安全距离」——「сука блядь」原来是告白专用语？</p>
+                                <div class="anime-tags">
+                                    <span class="anime-tag">恋爱</span>
+                                    <span class="anime-tag">校园</span>
+                                    <span class="anime-tag">喜剧</span>
+                                    <span class="anime-tag">声控福利</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                
+                <h2 class="section-title">视频剪辑鉴赏</h2>
+                <section class="video-section">
+                    <div class="video-gallery">
+                        <div class="video-card">
+                            <div class="video-container">
+                                <video controls poster="images/videos/英梨梨.jpg">
+                                    <source src="videos/英梨梨.mp4" type="video/mp4">
+                                    您的浏览器不支持视频标签。
+                                </video>
+                            </div>
+                            <div class="video-content">
+                                <h3>十年前，你有喜欢过我吗</h3>
+                                <p>“不用抉择，我会自动变朋友”</p>
+                                <div class="video-tags">
+                                    <span class="video-tag">遗憾</span>
+                                    <span class="video-tag">英梨梨</span>
+                                    <span class="video-tag">MAD</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="video-card">
+                            <div class="video-container">
+                                <video controls poster="images/videos/去见你我一定是用跑的.jpg">
+                                    <source src="videos/去见你我一定是用跑的.mp4" type="video/mp4">
+                                    您的浏览器不支持视频标签。
+                                </video>
+                            </div>
+                            <div class="video-content">
+                                <h3>去见你我一定是用跑的</h3>
+                                <p>经典番剧场景合集，感受青春的美好与悸动。</p>
+                                <div class="video-tags">
+                                    <span class="video-tag">混剪</span>
+                                    <span class="video-tag">日漫</span>
+                                    <span class="video-tag">踩点</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="video-card">
+                            <div class="video-container">
+                                <video controls poster="images/videos/Gods.png">
+                                    <source src="videos/Gods.mp4" type="video/mp4">
+                                    您的浏览器不支持视频标签。
+                                </video>
+                            </div>
+                            <div class="video-content">
+                                <h3>GODS阿蕾奇诺混剪</h3>
+                                <p>阿蕾奇诺超(不)燃剪辑，剧情向？</p>
+                                <div class="video-tags">
+                                    <span class="video-tag">剧情向</span>
+                                    <span class="video-tag">阿蕾奇诺</span>
+                                    <span class="video-tag">MAD</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="video-card">
+                            <div class="video-container">
+                                <video controls poster="images/videos/EVA.png">
+                                    <source src="videos/EVA.mp4" type="video/mp4">
+                                    您的浏览器不支持视频标签。
+                                </video>
+                            </div>
+                            <div class="video-content">
+                                <h3>【淡蓝色的雨】EVA燃剪？</h3>
+                                <p>发给你看EVA的朋友:O</p>
+                                <div class="video-tags">
+                                    <span class="video-tag">治愈</span>
+                                    <span class="video-tag">全员向</span>
+                                    <span class="video-tag">MAD</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="video-card">
+                            <div class="video-container">
+                                <video controls poster="images/videos/520.png">
+                                    <source src="videos/520.mp4" type="video/mp4">
+                                    您的浏览器不支持视频标签。
+                                </video>
+                            </div>
+                            <div class="video-content">
+                                <h3>【5:20AM】三月七</h3>
+                                <p>超萌的！！！</p>
+                                <div class="video-tags">
+                                    <span class="video-tag">治愈</span>
+                                    <span class="video-tag">三月七</span>
+                                    <span class="video-tag">混剪</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 个人见解 -->
+                <h2 class="section-title">二次元文化见解</h2>
+                <section class="insights-section">
+                    <div class="insight-card">
+                        <h3><i class="fas fa-comment"></i> 动漫对青少年的积极影响</h3>
+                        <p>动漫不仅仅是娱乐，它教会我许多人生道理。从《紫罗兰永恒花园》中学习爱的真谛，从《孤独摇滚》中看到克服社交恐惧的勇气。优秀的动漫作品能传递积极价值观，激发创造力，甚至成为学习日语的动力。</p>
+                    </div>
+                    
+                    <div class="insight-card">
+                        <h3><i class="fas fa-heart"></i> 角色喜爱的深层原因</h3>
+                        <p>为什么我们会被特定角色吸引？我认为是因为我们在他们身上看到了自己渴望的特质。八奈见杏菜的率真和热情正是我所向往的。这种情感连接让二次元角色超越了虚拟存在，成为我们情感世界的一部分。</p>
+                    </div>
+                    
+                    <div class="insight-card">
+                        <h3><i class="fas fa-users"></i> 漫展文化的独特魅力</h3>
+                        <p>参加漫展是我最期待的社交活动。在这里，我可以遇到志同道合的朋友，交流对作品的看法，交换谷子。这种基于共同爱好的社交方式，打破了日常社交的壁垒，创造了一个包容性极强的社区。</p>
+                    </div>
+                    
+                    <div class="insight-card">
+                        <h3><i class="fas fa-palette"></i> 同人创作的二次创作文化</h3>
+                        <p>同人创作是二次元文化的重要组成部分。通过创作同人作品，粉丝们表达对角色的独特理解，延伸原作故事。我特别欣赏那些高质量的老八同人图，它们从不同角度展现了角色的魅力。</p>
+                    </div>
+                </section>
+            </section>
+        </section>
+
+        <!-- 创客空间 -->
+        <section id="maker" class="page-section">
+            <div class="hero-section">
+                <div class="character-art">
+                    <div class="character-img">
+                        <div class="text-overlay">
+                            <div class="character-name">Siroukin</div>
+                            <div class="page-title">创客空间</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="welcome-message">
+                    <h1>创客空间</h1>
+                    <p class="subheading">编程项目 | 游戏开发 | 创意实现</p>
+                    <div class="quote-box">
+                        <p>"用代码改变世界，哪怕只是一点点"</p>
+                        <p class="quote-author">- Siroukin工作室理念</p>
+                    </div>
+                </div>
+            </div>
+
+            <section class="info-section">
+                <div class="info-card">
+                    <h2><i class="fas fa-code"></i> 项目展示</h2>
+                    <ul>
+                        <li><strong>B站缓存视频合成器</strong> - 合并B站缓存视频</li>
+                        <li><strong>Siroukin播放器</strong> - 轻量级本地音乐播放器</li>
+                        <li><strong>寻医(游戏)</strong> - 医疗题材剧情解谜游戏</li>
+                        <li><strong>极简太空战机</strong> - 复古风格射击游戏</li>
+                        <li><strong>像素风冒险游戏</strong> - 16位像素风格探索游戏</li>
+                        <li><strong>智能备忘录</strong> - 轻量化备忘录工具</li>
+                    </ul>
+                </div>
+                
+                <div class="info-card">
+                    <h2><i class="fas fa-laptop-code"></i> 技术栈</h2>
+                    <div class="tags">
+                        <span>Python</span>
+                        <span>JavaScript</span>
+                        <span>RenPy</span>
+                        <span>HTML5/CSS3</span>
+                        <span>SQLite</span>
+                        <span>Git</span>
+                        <span>Aseprite</span>
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <h2><i class="fas fa-history"></i> 开发历程</h2>
+                    <ul>
+                        <li><strong>2022年</strong> - 成立Siroukin工作室</li>
+                        <li><strong>2023年</strong> - 发布首款游戏《AI扫雷》</li>
+                        <li><strong>2024年</strong> - 发布《寻医》《AI任务提示器》</li>
+                        <li><strong>2025年7月</strong> - 发布《Siroukin播放器》</li>
+                        <li><strong>2025年8月</strong> - 创建个人网站</li>
+                    </ul>
+                </div>
+            </section>
+        </section>
+
+        <!-- 联系我 -->
+        <section id="contact" class="page-section">
+            <div class="hero-section">
+                <div class="character-art">
+                    <div class="character-img">
+                        <div class="text-overlay">
+                            <div class="character-name">联系桜島琥夏</div>
+                            <div class="page-title">交流 | 合作 | 应援</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="welcome-message">
+                    <h1>联系我</h1>
+                    <p class="subheading">项目合作 | 二次元交流 | 其他事宜</p>
+                    <div class="quote-box">
+                        <p>"今天的努力，是为了明天能买到更多老八周边！"</p>
+                        <p class="quote-author">- 桜島琥夏</p>
+                    </div>
+                </div>
+            </div>
+
+            <section class="info-section">
+                <!-- 联系表单 -->
+                <section class="contact-form-section">
+                    <div class="contact-card">
+                        <h2><i class="fas fa-paper-plane"></i> 联系信息</h2>
+                        <div class="form-group">
+                            <label for="email">电子邮箱</label>
+                            <input type="email" id="email" class="form-control" value="sakurajima.roka@gmail.com" readonly>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="qq">QQ</label>
+                            <input type="text" id="qq" class="form-control" value="2035566353（请备注来意）" readonly>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="location">位置</label>
+                            <input type="text" id="location" class="form-control" value="中国 · 泸州" readonly>
+                        </div>
+                        
+                        <a href="https://mail.qq.com/" class="submit-btn">
+                            <i class="fas fa-envelope"></i> Join us
+                        </a>
+                    </div>
+                </section>
+                <!-- 联系方式 -->
+                <div class="info-card">
+                    <h2><i class="fas fa-envelope-open-text"></i> 直接联系</h2>
+                    
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>电子邮箱</h3>
+                            <p>
+                                <a href="mailto:sakurajima.roka@gmail.com">sakurajima.roka@gmail.com</a>
+                            </p>
+                            <p>
+                                <a href="mailto:2035566353@qq.com">2035566353@qq.com</a>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>网名</h3>
+                            <p>桜島琥夏 (Sakurajima Roka)</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>位置</h3>
+                            <p>中国 · 泸州</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-method">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="contact-details">
+                            <h3>响应时间</h3>
+                            <p>工作日：72小时内回复</p>
+                            <p>周末：48小时内回复</p>
+                        </div>
+                    </div>
+                </div>
+                
+                
+                <!-- 社交媒体 -->
+                <section class="social-section">
+                    <div class="social-card">
+                        <h2><i class="fas fa-hashtag"></i> 关注我的社交媒体</h2>
+                        <div class="social-icons">
+                            <a href="https://www.xiaohongshu.com/user/profile/62ff980e0000000012000fa2?xsec_token=YBycQEGiTREHtbgVn447kQOhHBsFdjJo22DB8lFwof0WE%3D&xsec_source=app_share&xhsshare=CopyLink&appuid=62ff980e0000000012000fa2&apptime=1754719609&share_id=92d72cd9a9fe4fc482d43b0a519dd556&share_channel=copy_link" class="social-icon" target="_blank">
+                                <div class="icon-wrapper">
+                                    <i class="fab fa-reddit"></i>
+                                </div>
+                                <span>小红书</span>
+                            </a>
+                            
+                            <a href="https://m.youtube.com/channel/UCbD0_nUBYpJX2-KSjPNt3zA" class="social-icon" target="_blank">
+                                <div class="icon-wrapper">
+                                    <i class="fab fa-youtube"></i>
+                                </div>
+                                <span>YouTube</span>
+                            </a>
+                            
+                            <a href="https://qm.qq.com/q/2035566353" class="social-icon" target="_blank">
+                                <div class="icon-wrapper">
+                                    <i class="fab fa-qq"></i>
+                                </div>
+                                <span>QQ</span>
+                            </a>
+                            
+                            <a href="https://b23.tv/CEwHdYA" class="social-icon" target="_blank">
+                                <div class="icon-wrapper">
+                                    <i class="fab fa-bilibili"></i>
+                                </div>
+                                <span>哔哩哔哩</span>
+                            </a>
+                        </div>
+                    </div>
+                </section>
+            </section>
+        </section>
+    </main>
+
+    <!-- 页脚 -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>© 2025 桜島琥夏の个人空间 | 八奈见杏菜应援站</p>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-reddit"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-qq"></i></a>
+                <a href="#"><i class="fab fa-bilibili"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 返回顶部按钮 -->
+    <div class="back-to-top" id="backToTop">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <script>
+        // 菜单切换功能
+        const menuToggle = document.getElementById('menuToggle');
+        const closeMenu = document.getElementById('closeMenu');
+        const mobileNav = document.getElementById('mobileNav');
+        const overlay = document.getElementById('overlay');
+        
+        menuToggle.addEventListener('click', () => {
+            mobileNav.classList.add('active');
+            overlay.classList.add('active');
+        });
+        
+        closeMenu.addEventListener('click', () => {
+            mobileNav.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+        
+        overlay.addEventListener('click', () => {
+            mobileNav.classList.remove('active');
+            overlay.classList.remove('active');
+        });
+        
+        // 页面切换功能
+        const navLinks = document.querySelectorAll('.mobile-nav a');
+        const pageSections = document.querySelectorAll('.page-section');
+        
+        navLinks.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // 更新活动链接
+                navLinks.forEach(navLink => navLink.classList.remove('active'));
+                link.classList.add('active');
+                
+                // 显示对应页面
+                const targetPage = link.getAttribute('data-page');
+                pageSections.forEach(section => {
+                    section.classList.remove('active');
+                    if (section.id === targetPage) {
+                        section.classList.add('active');
+                    }
+                });
+                
+                // 关闭菜单
+                mobileNav.classList.remove('active');
+                overlay.classList.remove('active');
+                
+                // 滚动到顶部
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+        
+        // 随机语录
+        const quotes = [
+            "八奈见杏菜是世界上第一可爱的角色！",
+            "老八的笑容由我来守护！",
+            "喜欢八奈见杏菜需要理由吗？不需要！",
+            "今天的努力，是为了明天能买到更多老八周边！",
+            "八奈见杏菜的笑容就是我每天的动力源泉！",
+            "老八的每一帧画面都值得珍藏！"
+        ];
+        
+        const quoteElement = document.getElementById('quote');
+        if (quoteElement) {
+            const randomIndex = Math.floor(Math.random() * quotes.length);
+            quoteElement.textContent = `"${quotes[randomIndex]}"`;
+        }
+        
+        // 返回顶部按钮
+        const backToTop = document.getElementById('backToTop');
+        
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+        
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        
+        // 卡片悬停效果（移动端优化）
+        const infoCards = document.querySelectorAll('.info-card');
+        infoCards.forEach(card => {
+            card.addEventListener('touchstart', () => {
+                card.classList.add('hover-effect');
+            });
+            
+            card.addEventListener('touchend', () => {
+                setTimeout(() => {
+                    card.classList.remove('hover-effect');
+                }, 300);
+            });
+        });
+    </script>
+</body>
+</html>
