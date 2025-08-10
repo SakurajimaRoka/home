@@ -97,13 +97,11 @@
         }
 
         // 当前页面是index.html且是移动设备时跳转
-        if (window.location.pathname.endsWith('https://sakurajimaroka.github.io/home/') || 
-            window.location.pathname === '/') {
-            if (isMobileDevice()) {
-                window.location.href = 'index_mobile.html';
-            }
+        if (isMobileDevice()) {
+            window.location.href = 'index_mobile.html';
         }
     </script>
 </body>
 </html>
+
 
