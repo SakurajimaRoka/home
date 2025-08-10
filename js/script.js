@@ -29,4 +29,14 @@ document.addEventListener('DOMContentLoaded', function() {
             link.classList.remove('active');
         }
     });
+    
+    // 移动设备检测（防止在移动版页面重复跳转）
+    function isMobileDevice() {
+        return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    }
+    
+    // 确保不会在移动版页面重定向回桌面版
+    if (isMobileDevice() && window.location.pathname.endsWith('index.html')) {
+        window.location.href = 'index_mobile.html';
+    }
 });
